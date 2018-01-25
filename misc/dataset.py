@@ -57,8 +57,11 @@ class ImageDataset(data.Dataset):
     def __getitem__(self, index):
         image_path, feature_path = self.images[index]
         image = Image.open(image_path)
+        np_image = np.array(image)
+        # print(np_image.mean(axis=(0, 1)))
         if self.trans is not None:
             image = self.trans(image)
+        # print(image.mean())
         return image, feature_path
 
     def collate_fn(self, batch):

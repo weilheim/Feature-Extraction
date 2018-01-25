@@ -14,7 +14,7 @@ from torch.autograd import Variable
 
 class ImageDataset(data.Dataset):
     def __init__(self, image_dir, feature_dir,
-                 transforms=None, num_hierachy=1):
+                 size=(224, 224), num_hierachy=1):
         assert os.path.exists(image_dir)
         if not os.path.exists(feature_dir):
             os.makedirs(feature_dir)
@@ -44,7 +44,7 @@ class ImageDataset(data.Dataset):
 
         # self.trans = transforms
         self.trans = torchvision.transforms.Compose([
-            torchvision.transforms.Resize((299, 299), interpolation=Image.BILINEAR),
+            torchvision.transforms.Resize(size, interpolation=Image.BILINEAR),
             torchvision.transforms.ToTensor(),
             torchvision.transforms.Normalize(
                 mean=[.485, .456, .406],
